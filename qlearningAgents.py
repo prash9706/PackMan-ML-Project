@@ -66,12 +66,11 @@ class QLearningAgent(ReinforcementAgent):
         """
         "*** YOUR CODE HERE ***"
         # util.raiseNotDefined()
-        possibleActions = self.getLegalActions(state)
-        if possibleActions:
+        allLegalActions = self.getLegalActions(state)
+        if allLegalActions:
           maxValue = float('-inf')
-          for action in possibleActions:
-                qValue = self.getQValue(state, action)
-                maxValue = max(maxValue, qValue)
+          for action in allLegalActions:
+                maxValue = max(maxValue, self.getQValue(state, action))
           return maxValue
         return 0.0
 
@@ -83,15 +82,15 @@ class QLearningAgent(ReinforcementAgent):
         """
         "*** YOUR CODE HERE ***"
         # util.raiseNotDefined()
-        possibleActions = self.getLegalActions(state)
-        if possibleActions:
-          bestAction = possibleActions[0]
+        allLegalAction = self.getLegalActions(state)
+        if allLegalAction:
+          bestAction = allLegalAction[0]
           maxQValue = self.getQValue(state, bestAction)
-          for idx in range(1, len(possibleActions)):
-                qVal = self.getQValue(state, possibleActions[idx])
+          for idx in range(1, len(allLegalAction)):
+                qVal = self.getQValue(state, allLegalAction[idx])
                 if qVal >= maxQValue:
                       maxQValue = qVal
-                      bestAction = possibleActions[idx]
+                      bestAction = allLegalAction[idx]
           return bestAction
         return None
 
